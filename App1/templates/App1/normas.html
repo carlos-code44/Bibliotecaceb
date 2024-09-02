@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bibliotecaCEB</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body class="body-normas">
+    <h1 class="titulo-normas">Normas de la biblioteca</h1>
+    <div class="cards-normas">
+        <div class="card-norma">
+            <div class="numero-card"><strong>01</strong></div>
+            <hr class="linea-1"><hr class="linea-2">
+            <div class="info-card">
+                <ion-icon name="volume-mute-outline"></ion-icon>
+                <h2>Silencio y comportamiento respetuoso</h2>
+                <p>Mantén un tono de voz bajo y evita hacer ruidos molestos para no perturbar a los demás usuarios.</p>
+            </div>
+        </div>
+        <div class="card-norma">
+            <div class="numero-card"><strong>02</strong></div>
+            <hr class="linea-1" style="margin-right: 0px;"><hr class="linea-2">
+            <div class="info-card">
+                <ion-icon name="book-outline"></ion-icon>
+                <h2>Plazos de préstamo y devolución</h2>
+                <p>Respeta las fechas de devolución de los libros prestados. Renueva o devuelve a tiempo para evitar multas.</p>
+            </div>
+        </div>
+        <div class="card-norma">
+            <div class="numero-card"><strong>03</strong></div>
+            <hr class="linea-1"><hr class="linea-2">    
+            <div class="info-card">
+                <ion-icon name="fast-food-outline"></ion-icon>
+                <h2>Prohibición de alimentos y bebidas</h2>
+                <p>No se permite comer ni beber en la biblioteca para mantener limpio el espacio y proteger los materiales.</p>
+            </div>
+        </div> 
+    </div>
+
+    <hr class="linea-3">
+    
+    <div class="card-norma4">
+        <img src="{% static 'imagenes/imagen-norma4.jpg' %}" alt="">
+        <div class="info-norma4">
+            <div class="numero-card"><strong>04</strong></div>
+            <h2>Cuidado de los materiales y equipos</h2>
+            <p>Los recursos de la biblioteca son para el beneficio de todos los usuarios, por lo que es fundamental tratarlos con respeto y cuidado. Manipula los libros con manos limpias y evita doblar las esquinas de las páginas o escribir en ellos. </p>
+        </div>
+    </div>
+
+    <img src="{% static 'imagenes/normas-paginado.png' %}" alt="" style="background-color: #F6F8FF; width: 100%;">
+<div class="body-normas2">
+    <h2>Otras normas</h2>
+
+    <div class="contenedor-normas">
+        <div class="normas-fila1">
+            <div class="card-norma-filas">
+                <hr>
+                <span class="norma-circulo"></span>
+                <span class="norma-linea"></span>
+                <div class="info-norma-filas">
+                    <div class="numero-norma" style="color: #BCB1EF;"><strong>05</strong></div>
+                    <h4>Uso responsable de espacios de estudio</h4>
+                    <p>La biblioteca ofrece diversos espacios para estudio individual y grupal. Utiliza estos espacios de manera responsable y considerada.</p>
+                </div>
+            </div>
+            <div class="card-norma-filas">
+                <hr>
+                <span class="norma-circulo"></span>
+                <span class="norma-linea"></span>
+                <div class="info-norma-filas">
+                    <div class="numero-norma" style="color: #BCB1EF;"><strong>06</strong></div>
+                    <h4>Registro y carné de biblioteca</h4>
+                    <p>Para acceder a todos los servicios de la biblioteca, es necesario obtener un carné. El proceso de registro implica proporcionar información personal.</p>
+                </div>
+            </div>
+            <div class="card-norma-filas">
+                <hr>
+                <span class="norma-circulo"></span>
+                <span class="norma-linea"></span>
+                <div class="info-norma-filas">
+                    <div class="numero-norma" style="color: #BCB1EF;"><strong>07</strong></div>
+                    <h4>Sanciones por incumplimiento</h4>
+                    <p>El incumplimiento de las normas de la biblioteca puede conllevar sanciones que varían según la gravedad y frecuencia de la infracción.</p>
+                </div>
+            </div>
+        </div>
+        <div class="normas-fila2">
+            <div class="card-norma-filas">
+                <hr>
+                <span class="norma-circulo"></span>
+                <span class="norma-linea"></span>
+                <div class="info-norma-filas">
+                    <div class="numero-norma" style="color: #BCB1EF;"><strong>08</strong></div>
+                    <h4>Uso de dispositivos electrónicos personales</h4>
+                    <p>Se permite el uso de dispositivos electrónicos personales como celulares en la biblioteca, siempre y cuando se haga de manera responsable.</p>
+                </div>
+            </div>
+            <div class="card-norma-filas">
+                <hr>
+                <span class="norma-circulo"></span>
+                <span class="norma-linea"></span>
+                <div class="info-norma-filas">
+                    <div class="numero-norma" style="color: #BCB1EF;"><strong>09</strong></div>
+                    <h4>Política de copyright y uso justo de materiales</h4>
+                    <p>La biblioteca se adhiere a las leyes de derechos de autor. Al utilizar materiales de la biblioteca para investigación o estudio, asegúrate de respetar estas leyes.</p>
+                </div>
+            </div>
+            <div class="card-norma-filas">
+                <hr>
+                <span class="norma-circulo"></span>
+                <span class="norma-linea"></span>
+                <div class="info-norma-filas">
+                    <div class="numero-norma" style="color: #BCB1EF;"><strong>10</strong></div>
+                    <h4>Política de inclusión y accesibilidad</h4>
+                    <p>La biblioteca se compromete a ser un espacio inclusivo y accesible para todos los miembros de la comunidad escolar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'App1:inicio' %}">Volver</a>
+</div> 
+
+    
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

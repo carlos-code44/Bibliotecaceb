@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BibliotecaCEB</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Grey+Qo&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body class="body-mas-info">
+    <div class="contendor-titulo-mas-info">
+        <h1 class="titulo-mas-info" id="titulo-mas-info1">Biblioteca</h1>
+        <h1 class="titulo-mas-info" id="titulo-mas-info1-5">del </h1>
+        <h1 class="titulo-mas-info" id="titulo-mas-info2">Colegio <span style="color: #01A7F4;">C</span>iudadela</h1>
+        <h1 class="titulo-mas-info" id="titulo-mas-info3"><span style="color: #01A7F4;">E</span>ducativa de <span style="color: #01A7F4;">B</span>osa</h1>
+        <ion-icon name="chevron-down-outline" id="boton-bajar"></ion-icon>
+    </div>
+
+    <header id="miHeader">
+        <div>
+            <h3>BibliotecaCEB</h3>
+        </div>
+        <div>
+            <a href="{% url 'App1:inicio' %}">Inicio</a>
+            <a href="{% url 'App1:login' %}">Iniciar seccion</a>
+            <a href="{% url 'App1:normas' %}">Normas</a>
+            <a href="{% url 'App1:horarios' %}">Horarios</a>
+        </div>
+    </header>
+
+    <section class="home-pagina1">
+        <img src="{% static 'imagenes/fondologin3.jpeg' %}" alt="">
+        <h2>BIENVENIDO A LA PAGINA DE LA BIBLIOTECA</h2>
+        <p>Te encuentras en la página de la Biblioteca del Colegio Ciudadela Educativa de Bosa. Aquí podrás realizar diferentes acciones como: Revisar nuestro catálogo completo de libros y recursos, Consultar los horarios de atención, Leer las normas de uso de la biblioteca y Iniciar sesión para acceder a servicios personalizados.</p>
+        <a href="{% url 'App1:login' %}" >INICIAR SECCION</a>
+        <hr>
+    </section>
+
+    <section class="home-pagina2">
+        <div class="contenedor-home-pagina2">
+            <div class="card-opcion">
+                <img src="{% static 'imagenes/imagen-prestamo.png' %}" alt="">
+                <h2>PRESTAMOS</h2>
+                <p>Disfruta de nuestro servicio de Préstamos y Renovaciones para descubrir nuevas perspectivas y emociones a través de la magia de los libros.</p>
+                <a href="{% url 'App1:login' %}">SEGUIR</a>
+                <hr>
+            </div>
+            <div class="card-opcion">
+                <img src="{% static 'imagenes/imagen-horario.jpg' %}" alt="">
+                <h2>HORARIOS</h2>
+                <p>En la biblioteca de nuestro colegio, te recibimos en distintos momentos del día con horarios flexibles, especialmente diseñados según el ritmo escolar.</p>
+                <a href="{% url 'App1:horarios' %}">SEGUIR</a>
+                <hr>
+            </div>
+            <div class="card-opcion">
+                <img src="{% static 'imagenes/imagen-normas.png' %}" alt="">
+                <h2>NORMAS</h2>
+                <p>En nuestra biblioteca escolar, te presentamos un conjunto de normas pensadas para garantizar un ambiente acogedor y para el aprendizaje y la lectura.</p>
+                <a href="{% url 'App1:normas' %}">SEGUIR</a>
+                <hr>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-pagina3">
+        <div class="titulo-home-pagina3">
+            <h2>BibliotecaCEB</h2>
+        </div>
+        <div class="info-home-pagina3">
+            <p>La biblioteca de nuestro colegio es un tesoro de conocimiento y aventuras literarias. Este espacio acogedor está lleno de estantes repletos de libros que esperan ser descubiertos por nuestros estudiantes ávidos de aprendizaje y exploración. Aquí, los jóvenes lectores pueden sumergirse en mundos imaginarios, investigar hechos fascinantes y encontrar recursos para sus tareas escolares.   </p>
+            <img src="{% static 'imagenes/imagen-info-home.jpg' %}" alt="">
+        </div>
+        <div class="creditos">
+            <h2>Pagina desarollada por</h2>
+            <div class="nombres">
+                <h3>Carlos Acosta</h3>
+                <h3>Matias Martinez</h3>
+                <h3>Breiner Rodriguez</h3>
+                <h3>Estefani Tamara</h3>
+                <h3>Andres Villalba</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>Pagina creada en el año 2024</footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    {% load static %}
+    <script src="{% static 'js/inicio.js' %}"></script>
+</body>
+</html>

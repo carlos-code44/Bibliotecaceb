@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>BibliotecaCEB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Open+Sans:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/inicio.css' %}">
+  </head>
+  <body>
+    <header>
+      <img src="{% static 'imagenes/logo.png' %}" alt="logo" class="logo">
+      <h1 class="titulo">Biblioteca CEB</h1>
+      <section class="redes">
+        <a href="#" class="fa fa-facebook" id="r1"></a>
+        <a href="#" class="fa fa-twitter" id="r2"></a>
+        <a href="#" class="fa fa-instagram" id="r3"></a>
+      </section>
+    </header>
+    <section id="pagina1">
+      <div class="inicio">
+        <h2>BIENVENIDO A LA PAGINA DE LA BIBLIOTECA</h1>
+        <p>te encuentras en la pagina de la biblioteca del colegio ciuadela educativa de bosa aqui podras realizar diferentes acciones como revisar el catalogo, ver los horarios y leer las normas</p>
+        <div class="botones-login">
+          <a href="{% url 'App1:login' %}">Iniciar seccion</a>
+          <a href="{% url 'App1:login' %}" class="boton2">Registrarse</a>
+        </div>
+      </div>
+    </section>
+    <section id="pagina2">
+      <div class="catalogopadre">
+        <div class="catalogo">
+          <div class="minicatalogo">
+            <h2>CATALOGO DE LA BIBLIOTECA</h2>
+            <p>Explora nuestro extenso y diverso catálogo de libros cuidadosamente seleccionados para satisfacer tus intereses y necesidades de lectura. Desde clásicos literarios hasta las últimas novedades, nuestra colección abarca una amplia gama de géneros, temas y autores.</p>
+            <a href="{% url 'App1:login' %}">Catalogo</a>
+          </div>
+        </div>
+        <div class="catalogoimg">
+          <div class="fondo"> 
+            <div class="minicatalogoimg">
+              <img src="{% static 'imagenes/libroapilado.png' %}" alt="libros">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pagina3">
+      <div class="padrep3">
+          <div class="titulop3">
+            <h2>secciones</h2>
+            <p>aqui puedes encontrar algunas de las secciones que ofrece la pagina de la biblioteca institucional</p>
+          </div>
+        <div class="opcionesp3">
+          <div class="opcion1p3">
+            <div class="miniopcion1p3">
+              <img src="{% static 'imagenes/icono libro.png' %}" alt="icono de un libro" class="icono1p3">
+              <h4>Prestamos</h4>
+              <p>Disfruta de nuestro servicio de Préstamos y Renovaciones para descubrir nuevas perspectivas y emociones a través de la magia de los libros.</p>
+              <a href="{% url 'App1:login' %}">SEGUIR</a>
+              <img src="{% static 'imagenes/flechitas.png' %}" alt="icon" class="flechita">
+            </div>
+          </div>
+          <div class="opcion2p3">
+            <div class="miniopcion2p3">
+              <img src="{% static 'imagenes/reloj icono.png' %}" alt="icono de un reloj" class="icono2p3">
+              <h4>Horarios</h4>
+              <p>En la biblioteca de nuestro colegio, te recibimos en distintos momentos del día con horarios flexibles, especialmente diseñados según el ritmo escolar y tus necesidades.</p>
+              <a href="{% url 'App1:horarios' %}">SEGUIR</a>
+              <img src="{% static 'imagenes/flechitas.png' %}" alt="icon" class="flechita">
+            </div>
+          </div>
+          <div class="opcion3p3">
+            <div class="miniopcion3p3">
+              <img src="{% static 'imagenes/normas icono.png' %}" alt="icono de normas" class="icono3p3">
+              <h4>Normas</h4>
+              <p>En nuestra biblioteca escolar, te presentamos un conjunto de normas pensadas para garantizar un ambiente acogedor y propicio para el aprendizaje y la lectura.</p>
+              <a href="{% url 'App1:normas' %}">SEGUIR</a>
+              <img src="{% static 'imagenes/flechitas.png' %}" alt="icon" class="flechita">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pagina4">
+        <div class="padrep4">
+          <div class="opcion1p4">
+            <div class="miniopcion1p4">
+              <img src="{% static 'imagenes/icono telefono.png' %}" alt="icono de un libro" class="icono1p4">
+              <h4>¿Quienes somos?</h4>
+              <p>Aqui encontraras la infomacion de contacto del colegio y la biblioteca. Tambien encontaras mas informacion sobre la pagina</p>
+              <a href="{% url 'App1:mas_info' %}">SEGUIR</a>
+              <img src="{% static 'imagenes/flechitas2.png' %}" alt="icon" class="flechita">
+            </div>
+          </div>
+        </div>
+    </section>
+    <footer>
+      <p>Derechos de autor &copy; 2023 Biblioteca del Colegio</p>
+    </footer>
+  </body>
+</html>

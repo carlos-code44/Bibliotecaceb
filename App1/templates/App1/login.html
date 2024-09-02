@@ -1,0 +1,76 @@
+<!-- login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BibliotecaCEB</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <section class="forms-section">
+        <!-- Mostrar mensajes -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li id="mensajes" class="alert {{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <div class="forms">
+          <div class="form-wrapper is-active">
+            <button type="button" class="switcher switcher-login">
+              Iniciar sesión
+              <span class="underline"></span>
+            </button>
+            <form action="{% url 'App1:login' %}" class="form form-login" method="post">
+              {% csrf_token %}
+              <fieldset>
+                <legend>Please, enter your email and password for login.</legend>
+                <div class="input-block">
+                  <label for="login-email">Usuario</label>
+                  <input id="login-email" placeholder="ingresa tu usuario" type="" name="correo" required>
+                </div>
+                <div class="input-block">
+                  <label for="login-password">Contraseña</label>
+                  <input id="login-password" placeholder="ingresa tu contraseña" type="password" name="contraseña" required>
+                </div>
+              </fieldset>
+              <button type="submit" class="btn-login">Iniciar sesión</button>
+            </form>
+          </div>
+
+          <div class="form-wrapper">
+            <button type="button" class="switcher switcher-signup">
+              Registrarse
+              <span class="underline"></span>
+            </button>
+            <form action="{% url 'App1:register' %}" class="form form-signup" method="post">
+              {% csrf_token %}
+              <fieldset>
+                <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+                <div class="input-block">
+                  <label for="signup-email">Usuario</label>
+                  <input id="signup-email" placeholder="ingresa tu Usuario" type="text" name="usuario" required>
+                </div>
+                <div class="input-block">
+                  <label for="signup-password">Correo</label>
+                  <input id="signup-password" placeholder="ingresa tu correo" type="email" name="correo" required>
+                </div>
+                <div class="input-block">
+                  <label for="signup-password-confirm">Contraseña</label>
+                  <input id="signup-password-confirm" placeholder="ingresa tu contraseña" type="password" name="contraseña" required>
+                </div>
+              </fieldset>
+              <button type="submit" class="btn-signup">Continuar</button>
+            </form>
+          </div>
+        </div>
+      </section>
+</body>
+    {% load static %}
+    <script src="{% static 'js/login.js' %}"></script>
+</html>
