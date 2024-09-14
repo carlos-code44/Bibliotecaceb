@@ -903,9 +903,56 @@ input[type="file"] {
     flex-direction: column;
     align-items: center;
 }
+/* matias */
+
+/* ------------------------------------------------------prestamos------------------------------------------------------------------ */
+
+.contenedor-prestamos{
+    font-family: 'Outfit', sans-serif;
+    margin-left: 350px;
+    margin-right: 80px;
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+.form-group button {
+    background-color: #2A63EC;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.form-group button:hover {
+    background-color: #45a049;
+        
+}
 
 
-/*------------------> Responsive*/
+/*------------------> Responsive----------------------------------------------------------------------------------------------------*/
 
 @media (max-height: 660px){
     .barra-lateral .nombre-pagina{
