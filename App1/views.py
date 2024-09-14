@@ -194,3 +194,9 @@ def normas(request):
 
 def mas_info(request):
     return render(request, 'App1/mas_info.html',)
+
+def prestamos(request):
+    return render(request, 'App1/prestamos.html',)
+    
+def lista_prestamos(request):
+    return render(request, 'App1/lista_prestamos.html',)
