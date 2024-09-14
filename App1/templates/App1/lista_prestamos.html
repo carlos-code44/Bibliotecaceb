@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BibliotecaCEB</title>
+    <!-- Aquí puedes incluir tus archivos estáticos, como CSS y JavaScript -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/administrador.css' %}">
+</head>
+<body>
+    <div class="container" style="display: flex; flex-direction: column; height: 100vh;">
+
+{% load static %}
+
+<!-- <Barra lateral> -->
+
+<div class="menu">
+    <ion-icon name="menu-outline"></ion-icon>
+    <ion-icon name="close-outline" onclick="closeOptionsModal()"></ion-icon>
+</div>
+
+<div class="barra-lateral">
+    <div>
+        <div class="nombre-pagina">
+            <ion-icon id="cloud" name="library-outline" onclick="closeOptionsModal()"></ion-icon>
+            <span>BiblioCEB</span>
+        </div>
+    </div>
+
+    <nav class="navegacion">
+        <ul>
+            <li>
+                <a href="#">
+                    <ion-icon name="book-outline"></ion-icon>
+                    <span>Lista de libros</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <ion-icon name="calendar-number-outline"></ion-icon>
+                    <span>Hacer prestamo</span>
+                </a>
+            </li>
+            <li>
+                <a id="inbox" href="#">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span>Prestamos hechos</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <ion-icon name="people-outline"></ion-icon>
+                    <span>Administradores</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div>
+        <div class="linea"></div>
+
+        <div class="modo-oscuro">
+            <div class="info">
+                <ion-icon name="moon-outline"></ion-icon>
+                <span>Dark Mode</span>
+            </div>
+            <div class="switch">
+                <div class="base">
+                    <div class="circulo">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="usuario">
+            <img src="{% static 'imagenes/foto_default.png' %}" alt="">
+            <div class="info-usuario">
+                <div class="nombre-email">
+                    <span class="nombre">{{ user.username }}</span>
+                    <span class="email">{{ user.email }}</span>
+                </div>
+                <ion-icon name="ellipsis-vertical-outline" onclick="openOptionsModal(event)"></ion-icon>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- <opciones de perfil> -->
+<div class="modal4" id="modal4">
+    <div class="cerrar-opciones-perfil" onclick="closeOptionsModal()" >x</div>
+    <div class="opciones-perfil">
+        <a href="" onclick="openEditPerfilModal(event)" ><ion-icon name="create-outline"></ion-icon>&nbsp;Editar perfil</a>
+        <a href="{% url 'App1:logout' %}"><ion-icon name="exit-outline"></ion-icon>&nbsp;Cerrar perfil</a>
+    </div>
+</div>
+
+
+<!-- <Modal para editar perfil> -->
+    <div class="modal5" id="modal5">
+        <div class="modal-contenedor5">
+            <div onclick="closeEditPerfilModal()" class="close-modal">X</div>
+                <div class="imagen-perfil">
+                    <ion-icon name="create-outline" class="editar-imagen-perfil" onclick="openEditImagenPerfilModal(event)"></ion-icon>
+                    <img src="{% static 'imagenes/foto_default.png' %}" alt="">
+                </div>
+                <div class="opciones-editar-perfil">
+                    <a href="" onclick="openCambioUsuarioModal(event)">Cambiar usuario</a>
+                    <a href="" onclick="openCambioCorreoModal(event)">Cambiar correo</a>
+                    <a href="" onclick="openCambioContraseñaModal(event)">Cambiar contraseña</a>
+                    <a onclick="closeEditPerfilModal()">Volver</a>
+                </div>
+        </div>
+    </div>
+
+
+<!-- <Modal para editar perfil(imagen-perfil)> -->
+
+    <div class="modal-cambio-usuario" id="modal-edit-imagen">
+        <div class="modal-contenedor-usuario">
+            <div class="contenedor-imagen-actual-nueva">
+                <div class="imagen-actual-nueva"> 
+                    <label for="">Imagen de perfil actual</label> 
+                    <img src="">
+                    <button>Guardar</button> 
+                </div>
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+                <div class="imagen-actual-nueva"> 
+                    <label for="">Imagen de perfil nueva</label> 
+                    <img src="">
+                    <button onclick="closeEditImagenPerfilModal()">Volver</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- <Modal para editar perfil(usuario)> -->
+
+    <div class="modal-cambio-usuario" id="modal-cambio-usario">
+        <div class="modal-contenedor-usuario">
+            <div>
+                <div class="input-cambio">
+                    <label for="">Nuevo usuario</label>
+                    <input type="text" placeholder="ingresa tu nuevo usuario">
+                </div>
+                <div class="input-cambio">
+                    <label for="">Contraseña</label>
+                    <input type="password" placeholder="ingresa tu contraseña">
+                </div>
+            </div>
+            <div>
+                <button type="submit">Guardar</button>
+                <button onclick="closeCambioUsuarioModal()">Volver</button>
+            </div>
+        </div>
+    </div>
+
+
+<!-- <Modal para editar perfil(correo)> -->    
+
+    <div class="modal-cambio-usuario" id="modal-cambio-correo">
+        <div class="modal-contenedor-usuario">
+            <div>
+                <div class="input-cambio">
+                    <label for="">Nuevo correo</label>
+                    <input type="text" placeholder="ingresa tu nuevo correo">
+                </div>
+                <div class="input-cambio">
+                    <label for="">Contraseña</label>
+                    <input type="password" placeholder="ingresa tu contraseña">
+                </div>
+            </div>
+            <div>
+                <button type="submit">Guardar</button>
+                <button onclick="closeCambioCorreoModal()">Volver</button>
+            </div>
+        </div>
+    </div>
+
+
+<!-- <Modal para editar perfil(contraseña)> -->    
+
+    <div class="modal-cambio-usuario" id="modal-cambio-contraseña">
+        <div class="modal-contenedor-usuario">
+            <div>
+                <div class="input-cambio">
+                    <label for="">Nueva contraseña</label>
+                    <input type="text" placeholder="ingresa tu nueva contraseña">
+                </div>
+                <div class="input-cambio">
+                    <label for="">Contraseña actual</label>
+                    <input type="password" placeholder="ingresa tu contraseña actual">
+                </div>
+            </div>
+            <div>
+                <button type="submit">Guardar</button>
+                <button onclick="closeCambioContraseñaModal()">Volver</button>
+            </div>
+        </div>
+    </div>
+
+
+<!--------------------------------- <Contenedor principal> --------------------------------->
+
+    <div class="historial-prestamos">
+        <h1>HISTORIAL PRESTAMOS</h1>
+        <table><caption>TABLA PRESTAMOS</caption>
+            <thead>
+                <tr>
+                  <th>Fecha Inicial</th>
+                  <th>Estudiante</th>
+                  <th>Curso</th>
+                  <th>Correo Electrónico</th>
+                  <th>Libro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                  <td>3</td>
+                  <td>3</td>
+               </tr>
+               <tr>
+                  <td>3</td>
+                  <td>4</td>
+               </tr>
+               <tr>
+                  <td>5</td>
+                  <td>6</td>
+               </tr>
+               <tr>
+                 <td>5</td>
+                 <td>6</td>
+             </tr>
+             <tr>
+                <td>1</td>
+                <td>2</td>
+             </tr>
+             <tr>
+                <td>1</td>
+                <td>2</td>
+             </tr>
+            </tbody>
+            <tfoot>
+               <tr>
+                  <td colspan="2">
+            Has aprendido lo que son los números pares e impares
+                  </td>
+               </tr>
+            </tfoot>
+            </table>
+
+
+{% if messages %}
+<div id="message-container" style="display: none;">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    {% load static %}
+    <script src="{% static 'js/administrador.js' %}"></script>
+</body>
+</html>

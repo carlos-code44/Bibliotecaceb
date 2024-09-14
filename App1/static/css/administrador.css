@@ -951,6 +951,48 @@ h1 {
         
 }
 
+/* ------------------------------------------------------Lista-Prestamos------------------------------------------------------------------ */
+
+.historial-prestamos {
+    margin-left: 300px;
+}
+
+.historial-prestamos table, td {
+    border: #000000 1px solid ;
+}
+
+
+
+ /*---------------------------------------------------------spacing-------------------------------------------------------------------------*/
+.historial-prestamos table {
+  
+  
+  thead th:nth-child(1) {
+    width: 10%;
+  }
+  
+  thead th:nth-child(2) {
+    width: 20%;
+  }
+  
+  thead th:nth-child(3) {
+    width: 5%;
+  }
+  
+  thead th:nth-child(4) {
+    width: 15%;
+  }
+
+  thead th:nth-child(5) {
+    width: 10%;
+  }
+  
+  th,
+  td {
+    padding: 20px;
+  }
+}
+
 
 /*------------------> Responsive----------------------------------------------------------------------------------------------------*/
 
