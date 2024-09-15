@@ -32,7 +32,7 @@
     <nav class="navegacion">
         <ul>
             <li>
-                <a href="#">
+                <a href="{% url 'App1:libros' %}">
                     <ion-icon name="book-outline"></ion-icon>
                     <span>Lista de libros</span>
                 </a>
@@ -44,13 +44,13 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'App1:lista_prestamos' %}">
                     <ion-icon name="calendar-outline"></ion-icon>
                     <span>Prestamos hechos</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{% url 'App1:administradores' %}">
                     <ion-icon name="people-outline"></ion-icon>
                     <span>Administradores</span>
                 </a>
@@ -204,25 +204,16 @@
     </div>
 
 
-<!--------------------------------- <Contenedor principal> --------------------------------->
+{% comment %} <!--------------------------------- <Contenedor principal> ---------------------------> {% endcomment %}
 
 
-    <div class="contenedor-prestamos">
+    <div class="contenedorprincipal" id="contenedor-prestamos" >
         <h1>Formulario de Préstamo de Libros</h1>
         <form action="#" method="post">
-            <div class="form-group">
-                <label for="school-name">Nombre del Colegio:</label>
-                <input type="text" id="school-name" name="school_name" required>
-            </div>
-            <div class="form-group">
-                <label for="date">Fecha:</label>
-                <input type="date" id="date" name="date" required>
-            </div>
             <div class="form-group">
                 <label for="student-name">Nombre Completo del Estudiante:</label>
                 <input type="text" id="student-name" name="student_name" required>
             </div>
-            
             <div class="form-group">
                 <label for="grade">Curso:</label>
                 <input type="text" id="grade" name="grade" required>
@@ -236,16 +227,8 @@
                 <input type="email" id="contact-email" name="contact_email">
             </div>
             <div class="form-group">
-                <label for="book-title">Título del Libro:</label>
+                <label for="book-title">Libro:</label>
                 <input type="text" id="book-title" name="book_title" required>
-            </div>
-            <div class="form-group">
-                <label for="book-author">Autor del Libro:</label>
-                <input type="text" id="book-author" name="book_author" required>
-            </div>
-            <div class="form-group">
-                <label for="book-code">Código del Libro (si aplica):</label>
-                <input type="text" id="book-code" name="book_code">
             </div>
             <div class="form-group">
                 <label for="loan-date">Fecha de Préstamo:</label>
@@ -260,7 +243,7 @@
                 <textarea id="comments" name="comments" rows="4"></textarea>
             </div>
             <div class="form-group">
-                <button type="submit">Enviar Formulario</button>
+                <button type="submit">Hacer prestamo</button>
             </div>
         </form>
     </div>

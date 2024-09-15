@@ -44,13 +44,13 @@
                 </a>
             </li>
             <li>
-                <a id="inbox" href="#">
+                <a href="{% url 'App1:lista_prestamos' %}">
                     <ion-icon name="calendar-outline"></ion-icon>
                     <span>Prestamos hechos</span>
                 </a>
             </li>
             <li>
-                <a href="{% url 'App1:administradores' %}">
+                <a id="inbox" href="#">
                     <ion-icon name="people-outline"></ion-icon>
                     <span>Administradores</span>
                 </a>
@@ -206,55 +206,6 @@
 
 {% comment %}------------------------ contenedor principal----------------------------------- {% endcomment %}
 
-    <div class="historial-prestamos">
-        <h1>HISTORIAL PRESTAMOS</h1>
-        <table><caption>TABLA PRESTAMOS</caption>
-            <thead>
-                <tr>
-                  <th>Fecha Inicial</th>
-                  <th>Estudiante</th>
-                  <th>Curso</th>
-                  <th>Correo Electrónico</th>
-                  <th>Libro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>3</td>
-                  <td>3</td>
-               </tr>
-               <tr>
-                  <td>3</td>
-                  <td>4</td>
-               </tr>
-               <tr>
-                  <td>5</td>
-                  <td>6</td>
-               </tr>
-               <tr>
-                 <td>5</td>
-                 <td>6</td>
-             </tr>
-             <tr>
-                <td>1</td>
-                <td>2</td>
-             </tr>
-             <tr>
-                <td>1</td>
-                <td>2</td>
-             </tr>
-            </tbody>
-            <tfoot>
-               <tr>
-                  <td colspan="2">
-            Has aprendido lo que son los números pares e impares
-                  </td>
-               </tr>
-            </tfoot>
-            </table>
 
 
 {% if messages %}

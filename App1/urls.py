@@ -20,6 +20,7 @@ urlpatterns = [
     path('mas_info/', views.mas_info, name='mas_info'),
     path('prestamos/', views.prestamos, name='prestamos'),
     path('lista_prestamos/', views.lista_prestamos, name='lista_prestamos'),
+    path('administradores/', views.administradores, name='administradores'),
 ]
 
 if settings.DEBUG:
