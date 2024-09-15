@@ -956,11 +956,13 @@ input[type="file"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    transition: 0.5s;
 }
 
 .form-group button:hover {
-    background-color: #45a049;
-        
+    background-color: #FFFFFF;
+    color: black;
+    border: 1px solid black;
 }
 
 /* -----------------------------------------Lista-Prestamos-------------------------------------------------- */
