@@ -966,49 +966,67 @@ input[type="file"] {
 }
 
 /* -----------------------------------------Lista-Prestamos-------------------------------------------------- */
-.historial-prestamos {
-    margin-left: 300px;
+
+#contenedor-lista-prestamos { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-inicio);
+
+    h1 {
+        font-size: 40px;
+        margin: 20px;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--color-barra-lateral);
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+    th {
+        background-color: var(--color-background-libro);
+    }
+
+    tr {
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    tr:hover {
+        background-color: var(--color-background-libro);
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--color-inicio);
+    }
+
+    .nombre-columna:hover {
+        background-color: none;
+        border: none;
+    }
+
+    ion-icon {
+        font-size: 30px;
+        color: var(--color-inicio);
+        transition: 0.5s;
+        cursor: pointer;
+        color: #3838E6;
+    }
+
+    ion-icon:hover {
+        color: var(--color-inicio);
+    }
 }
 
-.historial-prestamos table, td {
-    border: #000000 1px solid ;
-}
 
-
-
- /*---------------------------------------------------------spacing-------------------------------------------------------------------------*/
-.historial-prestamos table {
-  
-  
-  thead th:nth-child(1) {
-    width: 10%;
-  }
-  
-  thead th:nth-child(2) {
-    width: 20%;
-  }
-  
-  thead th:nth-child(3) {
-    width: 5%;
-  }
-  
-  thead th:nth-child(4) {
-    width: 15%;
-  }
-
-  thead th:nth-child(5) {
-    width: 10%;
-  }
-  
-  th,
-  td {
-    padding: 20px;
-  }
-}
 
 
 /*------------------> Responsive----------------------------------------------------------------------------------------------------*/
-
 @media (max-height: 660px){
     .barra-lateral .nombre-pagina{
         margin-bottom: 5px;
