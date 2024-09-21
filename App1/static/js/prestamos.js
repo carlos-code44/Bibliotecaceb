@@ -133,3 +133,23 @@ const openEditImagenPerfilModal = (event) => {
 const closeEditImagenPerfilModal = () => {
     modalEditImagenPerfil.style.display = 'none';
 }
+
+
+
+
+
+
+
+
+// modal para elegir libro de prestamos
+
+// Abrir el modal
+function abrirModal() {
+    document.getElementById("modal-seleccionar-libro").style.display = "flex";
+    cargarLibros();
+}
+
+// Cerrar el modal
+function cerrarModal() {
+    document.getElementById("modal-seleccionar-libro").style.display = "none";
+}

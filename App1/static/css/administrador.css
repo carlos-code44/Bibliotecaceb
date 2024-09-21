@@ -965,6 +965,98 @@ input[type="file"] {
     border: 1px solid black;
 }
 
+.seleccionar-libro {
+    padding: 100px 20px;
+    background-color: var(--color-background-libro);
+    width: 196px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.seleccionar-libro button {
+    background-color: #2A63EC;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.5s;
+}
+
+.seleccionar-libro button:hover {
+    background-color: #FFFFFF;
+    color: black;
+    border: 1px solid black;
+}
+
+
+/* Estilos para el modal */
+
+.modal-prestamo {
+    display: none;
+    background-color: var(--modal-background);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-header {
+    display: flex;
+}
+
+.close-modal-prestamo {
+    background-color: red;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-size: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: var(--color-body);
+    min-width: 400px;
+    max-width: 90%;
+    min-height: 300px;
+    max-height: 90%;
+    padding: 20px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.modal-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-body ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.modal-body ul li:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+
+
 /* -----------------------------------------Lista-Prestamos-------------------------------------------------- */
 
 #contenedor-lista-prestamos { 

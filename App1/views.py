@@ -9,9 +9,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def lista_libros(request):
-    print(f"Usuario autenticado: {request.user.is_authenticated}")
-    print(f"Usuario: {request.user.username}")  
+def lista_libros(request): 
     buscar = request.GET.get('txtbuscar', '')
     if buscar:
         libros = Libro.objects.filter(

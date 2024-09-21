@@ -236,10 +236,6 @@
                 <input type="email" id="contact-email" name="contact_email">
             </div>
             <div class="form-group">
-                <label for="book-title">Libro:</label>
-                <input type="text" id="book-title" name="book_title" required>
-            </div>
-            <div class="form-group">
                 <label for="loan-date">Fecha de Préstamo:</label>
                 <input type="date" id="loan-date" name="loan_date" required>
             </div>
@@ -247,6 +243,11 @@
                 <label for="return-date">Fecha de Devolución (Fecha límite):</label>
                 <input type="date" id="return-date" name="return_date" required>
             </div>
+
+            <div class="seleccionar-libro">
+                <button type="button" onclick="abrirModal()">Seleccionar Libro</button>
+            </div>
+
             <div class="form-group">
                 <label for="comments">Comentarios Adicionales (opcional):</label>
                 <textarea id="comments" name="comments" rows="4"></textarea>
@@ -256,6 +257,24 @@
             </div>
         </form>
     </div>
+
+
+
+<!-- Modal para elegir libro -->
+
+<div class="modal1" id="modal-seleccionar-libro" style="display: none;">
+    <div class="modal-content">
+        <div class="close-modal-prestamo" onclick="cerrarModal()">X</div>
+        <div class="modal-header">
+            <h2>Seleccionar Libro</h2>
+        </div>
+        <div class="modal-body">
+            <ul id="lista-libros">
+                <!-- Aquí se cargarán los libros de la base de datos -->
+            </ul>
+        </div>
+    </div>
+</div>
 
 
 
