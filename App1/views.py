@@ -58,12 +58,16 @@ def register_view(request):
         
         if User.objects.filter(email=email).exists():
             messages.error(request, 'Este correo ya está registrado')
-            return redirect('register')
+            return redirect('App1:register')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Este usuario ya está registrado')
+            return redirect('App1:register')
         
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
         messages.success(request, 'Registro exitoso. Ahora puedes iniciar sesión.')
-        return redirect('login')
+        return redirect('App1/login.html')
     
     return render(request, 'App1/login.html')
 
