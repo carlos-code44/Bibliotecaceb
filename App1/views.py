@@ -199,6 +199,9 @@ def normas(request):
 def mas_info(request):
     return render(request, 'App1/mas_info.html',)
 
+# paginas de administrador
+
+
 def prestamos(request):
     return render(request, 'App1/prestamos.html',)
     
@@ -207,3 +210,74 @@ def lista_prestamos(request):
 
 def administradores(request):
     return render(request, 'App1/administradores.html',)
+
+# vistas editar perfil
+
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, update_session_auth_hash
+from django.contrib import messages
+from django.shortcuts import redirect
+
+def cambiar_usuario(request):
+    if request.method == 'POST':
+        nuevo_usuario = request.POST.get('nuevo_usuario')
+        password = request.POST.get('password')
+        
+        # Verificamos si la contraseña es correcta
+        user = authenticate(username=request.user.username, password=password)
+        if user is not None:
+            # Actualizamos el nombre de usuario
+            user.username = nuevo_usuario
+            user.save()
+            messages.success(request, 'Usuario actualizado correctamente')
+            return redirect('App1:libros')
+        else:
+            messages.error(request, 'Contraseña incorrecta')
+            return redirect('App1:cambiar_usuario')
+
+    return redirect('App1:libros')
+
+
+def cambiar_correo(request):
+    if request.method == 'POST':
+        nuevo_correo = request.POST.get('nuevo_correo')
+        password = request.POST.get('password')
+        
+        # Verificamos si la contraseña es correcta
+        user = authenticate(username=request.user.username, password=password)
+        if user is not None:
+            # Actualizamos el correo del usuario
+            user.email = nuevo_correo
+            user.save()
+            messages.success(request, 'Correo actualizado correctamente')
+            return redirect('App1:libros')
+        else:
+            messages.error(request, 'Contraseña incorrecta')
+            return redirect('App1:cambiar_correo')
+
+    return redirect('App1:libros')
+
+
+
+def cambiar_contrasena(request):
+    if request.method == 'POST':
+        nueva_contrasena = request.POST.get('nueva_contrasena')
+        contrasena_actual = request.POST.get('contrasena_actual')
+        
+        # Verificamos si la contraseña actual es correcta
+        user = authenticate(username=request.user.username, password=contrasena_actual)
+        if user is not None:
+            # Actualizamos la contraseña del usuario
+            user.set_password(nueva_contrasena)
+            user.save()
+            
+            # Actualizamos la sesión para que el usuario no se desconecte
+            update_session_auth_hash(request, user)
+            
+            messages.success(request, 'Contraseña actualizada correctamente')
+            return redirect('App1:libros')
+        else:
+            messages.error(request, 'Contraseña actual incorrecta')
+            return redirect('App1:cambiar_contrasena')
+
+    return redirect('App1:libros')

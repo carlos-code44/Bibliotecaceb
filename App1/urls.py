@@ -21,6 +21,9 @@ urlpatterns = [
     path('prestamos/', views.prestamos, name='prestamos'),
     path('lista_prestamos/', views.lista_prestamos, name='lista_prestamos'),
     path('administradores/', views.administradores, name='administradores'),
+    path('cambiar_usuario/', views.cambiar_usuario, name='cambiar_usuario'),
+    path('cambiar_correo/', views.cambiar_correo, name='cambiar_correo'),
+    path('cambiar_contrasena/', views.cambiar_contrasena, name='cambiar_contrasena'),
 ]
 
 if settings.DEBUG:

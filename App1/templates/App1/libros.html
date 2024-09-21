@@ -131,18 +131,21 @@
     <div class="modal-cambio-usuario" id="modal-cambio-usario">
         <div class="modal-contenedor-usuario">
             <div>
-                <div class="input-cambio">
-                    <label for="">Nuevo usuario</label>
-                    <input type="text" placeholder="ingresa tu nuevo usuario">
-                </div>
-                <div class="input-cambio">
-                    <label for="">Contraseña</label>
-                    <input type="password" placeholder="ingresa tu contraseña">
-                </div>
-            </div>
-            <div>
-                <button type="submit">Guardar</button>
-                <button onclick="closeCambioUsuarioModal()">Volver</button>
+                <form method="POST" action="{% url 'App1:cambiar_usuario' %}">
+                    {% csrf_token %}
+                    <div class="input-cambio">
+                        <label for="">Nuevo usuario</label>
+                        <input type="text" name="nuevo_usuario" placeholder="ingresa tu nuevo usuario" required>
+                    </div>
+                    <div class="input-cambio">
+                        <label for="">Contraseña</label>
+                        <input type="password" name="password" placeholder="ingresa tu contraseña" required>
+                    </div>
+                    <div>
+                        <button type="submit">Guardar</button>
+                        <button onclick="closeCambioUsuarioModal()">Volver</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -150,24 +153,27 @@
 
 <!-- <Modal para editar perfil(correo)> -->    
 
-    <div class="modal-cambio-usuario" id="modal-cambio-correo">
-        <div class="modal-contenedor-usuario">
-            <div>
+<div class="modal-cambio-usuario" id="modal-cambio-correo">
+    <div class="modal-contenedor-usuario">
+        <div>
+            <form method="POST" action="{% url 'App1:cambiar_correo' %}">
+                {% csrf_token %}
                 <div class="input-cambio">
                     <label for="">Nuevo correo</label>
-                    <input type="text" placeholder="ingresa tu nuevo correo">
+                    <input type="email" name="nuevo_correo" placeholder="ingresa tu nuevo correo" required>
                 </div>
                 <div class="input-cambio">
                     <label for="">Contraseña</label>
-                    <input type="password" placeholder="ingresa tu contraseña">
+                    <input type="password" name="password" placeholder="ingresa tu contraseña" required>
                 </div>
-            </div>
-            <div>
-                <button type="submit">Guardar</button>
-                <button onclick="closeCambioCorreoModal()">Volver</button>
-            </div>
+                <div>
+                    <button type="submit">Guardar</button>
+                    <button onclick="closeCambioCorreoModal()">Volver</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
 <!-- <Modal para editar perfil(contraseña)> -->    
@@ -175,18 +181,21 @@
     <div class="modal-cambio-usuario" id="modal-cambio-contraseña">
         <div class="modal-contenedor-usuario">
             <div>
-                <div class="input-cambio">
-                    <label for="">Nueva contraseña</label>
-                    <input type="text" placeholder="ingresa tu nueva contraseña">
-                </div>
-                <div class="input-cambio">
-                    <label for="">Contraseña actual</label>
-                    <input type="password" placeholder="ingresa tu contraseña actual">
-                </div>
-            </div>
-            <div>
-                <button type="submit">Guardar</button>
-                <button onclick="closeCambioContraseñaModal()">Volver</button>
+                <form method="POST" action="{% url 'App1:cambiar_contrasena' %}">
+                    {% csrf_token %}
+                    <div class="input-cambio">
+                        <label for="">Nueva contraseña</label>
+                        <input type="password" name="nueva_contrasena" placeholder="ingresa tu nueva contraseña" required>
+                    </div>
+                    <div class="input-cambio">
+                        <label for="">Contraseña actual</label>
+                        <input type="password" name="contrasena_actual" placeholder="ingresa tu contraseña actual" required>
+                    </div>
+                    <div>
+                        <button type="submit">Guardar</button>
+                        <button onclick="closeCambioContraseñaModal()">Volver</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
