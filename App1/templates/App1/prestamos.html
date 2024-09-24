@@ -268,10 +268,33 @@
         <div class="modal-header">
             <h2>Seleccionar Libro</h2>
         </div>
+        <div class="contenedor-caja-buscar">
+            <button class="buscar" type="submit" value="Buscar" name="btnbuscar"><i
+                    class="bi bi-search"></i></button>
+            <input class="CajaTextoBuscar" type="text" name="txtbuscar"
+                placeholder="Ingresar Titulo, Autor, ISBN" autocomplete="off">
+        </div>
         <div class="modal-body">
-            <ul id="lista-libros">
-                <!-- Aquí se cargarán los libros de la base de datos -->
-            </ul>
+                <div class="libros">
+                    {% for libro in libros %}
+                    <div class="libro">
+                        <div class="portada-titulo">
+                            {% if libro.portada %}
+                            <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
+                            {% else %}
+                            <img src="{% static 'default_cover.jpg' %}" alt="Portada predeterminada">
+                            {% endif %}
+                            <div class="titulo-id">
+                                <p><strong># </strong>{{ libro.id }}</p>
+                                <h4>{{ libro.titulo }}</h4>
+                            </div>
+                        </div>
+                        <p><strong>ISBN: </strong>{{ libro.isbn }}</p>
+                        <p><strong>Autor: </strong>{{ libro.autor }}</p>
+                        <p><strong>Descripción: </strong>{{ libro.descripcion }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
         </div>
     </div>
 </div>

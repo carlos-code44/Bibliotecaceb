@@ -201,7 +201,22 @@ def mas_info(request):
 
 
 def prestamos(request):
-    return render(request, 'App1/prestamos.html',)
+    buscar = request.GET.get('txtbuscar', '')
+    if buscar:
+        libros = Libro.objects.filter(
+            Q(titulo__icontains=buscar) |
+            Q(autor__icontains=buscar) |
+            Q(isbn__icontains=buscar) |
+            Q(descripcion__icontains=buscar)
+        )
+    else:
+        libros = Libro.objects.all()
+
+    paginator = Paginator(libros, 3)
+    pagina = request.GET.get('pagina', 1)
+    libros_paginados = paginator.get_page(pagina)
+
+    return render(request, 'App1/prestamos.html', {'libros': libros_paginados, 'buscar': buscar}) 
     
 def lista_prestamos(request):
     return render(request, 'App1/lista_prestamos.html',)

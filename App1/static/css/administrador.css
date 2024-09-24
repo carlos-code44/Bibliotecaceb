@@ -1055,6 +1055,22 @@ input[type="file"] {
 
 
 
+#modal-seleccionar-libro .contenedor-caja-buscar {
+    margin: 20px 0px;
+}
+
+#modal-seleccionar-libro .libro {
+    transition: 0.5s;
+}
+
+
+#modal-seleccionar-libro .libro:hover {
+    cursor: pointer;
+    background-color: var(--color-barra-lateral);
+    box-shadow: #000000;
+}
+
+
 
 
 /* -----------------------------------------Lista-Prestamos-------------------------------------------------- */
