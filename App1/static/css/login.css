@@ -299,6 +299,7 @@ body {
 .btn-login:hover {
 	color: #2A63EC;
 	background: white;
+	cursor: pointer;
 }
 
 .btn-signup {
@@ -310,4 +311,5 @@ body {
 .btn-signup:hover {
 	color: #2A63EC;
 	background: white;
+	cursor: pointer;
 }
