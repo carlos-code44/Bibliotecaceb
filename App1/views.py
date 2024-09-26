@@ -65,7 +65,7 @@ def register_view(request):
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
         messages.success(request, 'Registro exitoso. Ahora puedes iniciar sesión.')
-        return redirect('App1/login.html')
+        return redirect('App1:register')
     
     return render(request, 'App1/login.html')
 
