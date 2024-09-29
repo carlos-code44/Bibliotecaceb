@@ -268,12 +268,16 @@
         <div class="modal-header">
             <h2>Seleccionar Libro</h2>
         </div>
-        <div class="contenedor-caja-buscar">
-            <button class="buscar" type="submit" value="Buscar" name="btnbuscar"><i
-                    class="bi bi-search"></i></button>
-            <input class="CajaTextoBuscar" type="text" name="txtbuscar"
-                placeholder="Ingresar Titulo, Autor, ISBN" autocomplete="off">
-        </div>
+
+        <form method="GET" id="form-busqueda">
+            <div class="contenedor-caja-buscar">
+                <button class="buscar" type="submit" value="Buscar" name="btnbuscar">
+                    <i class="bi bi-search"></i></button>
+                <input class="CajaTextoBuscar" type="text" name="txtbuscar2"
+                    placeholder="Ingresar Titulo, Autor, ISBN" autocomplete="off">
+            </div>
+        </form>
+
         <div class="modal-body">
                 <div class="libros">
                     {% for libro in libros %}
@@ -294,6 +298,17 @@
                         <p><strong>Descripción: </strong>{{ libro.descripcion }}</p>
                     </div>
                     {% endfor %}
+                </div>
+
+
+                <div class="opcionesfinales">
+                    {% if libros.has_previous %}
+                    <a class="botones2" href="?pagina={{ libros.previous_page_number }}&txtbuscar={{ buscar }}">Anterior</a>
+                    {% endif %}
+        
+                    {% if libros.has_next %}
+                    <a class="botones2" href="?pagina={{ libros.next_page_number }}&txtbuscar={{ buscar }}">Siguiente</a>
+                    {% endif %}
                 </div>
         </div>
     </div>

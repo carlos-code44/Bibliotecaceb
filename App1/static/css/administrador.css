@@ -1201,6 +1201,10 @@ input[type="file"] {
         height: 150px;
     }
 
+    .modal-content {
+        height: 2000px;
+    }
+
 }
 
 @media (min-width: 601px) and (max-width: 1300px) {

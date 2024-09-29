@@ -153,3 +153,32 @@ function abrirModal() {
 function cerrarModal() {
     document.getElementById("modal-seleccionar-libro").style.display = "none";
 }
+
+
+
+// prevenir la recarga de la pagina para buscar el libro en el modal
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('form-busqueda');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar la recarga de la página
+
+        const formData = new FormData(form);
+        const query = new URLSearchParams(formData).toString();
+
+        fetch(`/App1/prestamos/?${query}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest', // Indica que es una solicitud AJAX
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Inserta el HTML del template parcial en el modal
+            document.querySelector('.libros').innerHTML = data.html;
+        })
+        .catch(error => console.error('Error en la búsqueda:', error));
+    });
+});
+

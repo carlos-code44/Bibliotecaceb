@@ -186,7 +186,7 @@ def logout_view(request):
     return redirect('App1:login')
 
 
-# subpaginas de inicio (horario, normas y quienes somos)
+# ---------------------------subpaginas de inicio (horario, normas y quienes somos)-----------------------
 
 def horarios(request):
     return render(request, 'App1/horarios.html',)
@@ -197,11 +197,25 @@ def normas(request):
 def mas_info(request):
     return render(request, 'App1/mas_info.html',)
 
-# paginas de administrador
 
+
+# ------------------------------------paginas de administrador-------------------------------------------
+
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.core.paginator import Paginator
+from django.db.models import Q
+from .models import Libro
+
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.core.paginator import Paginator
+from django.db.models import Q
+from .models import Libro
 
 def prestamos(request):
-    buscar = request.GET.get('txtbuscar', '')
+    buscar = request.GET.get('txtbuscar2', '')
+    
     if buscar:
         libros = Libro.objects.filter(
             Q(titulo__icontains=buscar) |
@@ -212,11 +226,21 @@ def prestamos(request):
     else:
         libros = Libro.objects.all()
 
+    # Paginación
     paginator = Paginator(libros, 3)
     pagina = request.GET.get('pagina', 1)
     libros_paginados = paginator.get_page(pagina)
 
-    return render(request, 'App1/prestamos.html', {'libros': libros_paginados, 'buscar': buscar}) 
+    # Verifica si la solicitud es AJAX mediante el encabezado
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        # Renderiza solo el template parcial y lo devuelve como JSON
+        html = render_to_string('App1/_libros_list.html', {'libros': libros_paginados})
+        return JsonResponse({'html': html})
+    
+    # Si no es AJAX, renderiza la página completa
+    return render(request, 'App1/prestamos.html', {'libros': libros_paginados, 'buscar': buscar})
+
+
     
 def lista_prestamos(request):
     return render(request, 'App1/lista_prestamos.html',)
@@ -224,7 +248,7 @@ def lista_prestamos(request):
 def administradores(request):
     return render(request, 'App1/administradores.html',)
 
-# vistas editar perfil
+#------------------------------- vistas editar perfil-----------------------------------------------------
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, update_session_auth_hash
