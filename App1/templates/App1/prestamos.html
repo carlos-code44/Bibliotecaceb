@@ -299,17 +299,7 @@
                     </div>
                     {% endfor %}
                 </div>
-
-
-                <div class="opcionesfinales">
-                    {% if libros.has_previous %}
-                    <a class="botones2" href="?pagina={{ libros.previous_page_number }}&txtbuscar={{ buscar }}">Anterior</a>
-                    {% endif %}
-        
-                    {% if libros.has_next %}
-                    <a class="botones2" href="?pagina={{ libros.next_page_number }}&txtbuscar={{ buscar }}">Siguiente</a>
-                    {% endif %}
-                </div>
+                
         </div>
     </div>
 </div>

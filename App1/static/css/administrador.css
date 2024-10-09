@@ -972,6 +972,10 @@ input[type="file"] {
     border-radius: 5px;
 }
 
+.modal-header h2 {
+    color: var(--color-inicio);
+}
+
 .seleccionar-libro button {
     background-color: #2A63EC;
     color: white;
@@ -989,6 +993,31 @@ input[type="file"] {
     border: 1px solid black;
 }
 
+#modal-seleccionar-libro .libros {
+    justify-content: center;
+    margin-bottom: 0px;
+}
+
+#modal-seleccionar-libro .opcionesfinales {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+
+.pagination-link {
+    background-color: #3838E6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.pagination-link:hover {
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+}
 
 /* Estilos para el modal */
 
@@ -1133,7 +1162,8 @@ input[type="file"] {
 
 
 
-/*------------------> Responsive----------------------------------------------------------------------------------------------------*/
+/*---------------------------------------> Responsive------------------------------------------------------------*/
+
 @media (max-height: 660px){
     .barra-lateral .nombre-pagina{
         margin-bottom: 5px;

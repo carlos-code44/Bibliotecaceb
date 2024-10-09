@@ -158,27 +158,58 @@ function cerrarModal() {
 
 // prevenir la recarga de la pagina para buscar el libro en el modal
 
+let currentSearchTerm = '';
+
+function cargarLibros(url = '/App1/prestamos/') {
+    // Si la URL no incluye el término de búsqueda, añádelo
+    if (!url.includes('txtbuscar2=') && currentSearchTerm) {
+        url += (url.includes('?') ? '&' : '?') + 'txtbuscar2=' + encodeURIComponent(currentSearchTerm);
+    }
+
+    fetch(url, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.querySelector('.libros').innerHTML = data.html;
+        setupPaginationLinks();
+    })
+    .catch(error => console.error('Error al cargar libros:', error));
+}
+
+function setupPaginationLinks() {
+    const paginationLinks = document.querySelectorAll('.pagination-link');
+    paginationLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            let url = this.getAttribute('href');
+            
+            // Añadir el término de búsqueda actual a la URL de paginación
+            if (currentSearchTerm) {
+                url += (url.includes('?') ? '&' : '?') + 'txtbuscar2=' + encodeURIComponent(currentSearchTerm);
+            }
+            
+            cargarLibros(url);
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-busqueda');
 
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evitar la recarga de la página
+        event.preventDefault();
 
         const formData = new FormData(form);
+        currentSearchTerm = formData.get('txtbuscar2');
         const query = new URLSearchParams(formData).toString();
 
-        fetch(`/App1/prestamos/?${query}`, {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest', // Indica que es una solicitud AJAX
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Inserta el HTML del template parcial en el modal
-            document.querySelector('.libros').innerHTML = data.html;
-        })
-        .catch(error => console.error('Error en la búsqueda:', error));
+        cargarLibros(`/App1/prestamos/?${query}`);
     });
+
+    // Configurar los enlaces de paginación iniciales
+    setupPaginationLinks();
 });
 

@@ -207,12 +207,6 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Libro
 
-from django.http import JsonResponse
-from django.template.loader import render_to_string
-from django.core.paginator import Paginator
-from django.db.models import Q
-from .models import Libro
-
 def prestamos(request):
     buscar = request.GET.get('txtbuscar2', '')
     
@@ -233,8 +227,11 @@ def prestamos(request):
 
     # Verifica si la solicitud es AJAX mediante el encabezado
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        # Renderiza solo el template parcial y lo devuelve como JSON
-        html = render_to_string('App1/_libros_list.html', {'libros': libros_paginados})
+        # Renderiza el template parcial y lo devuelve como JSON
+        html = render_to_string('App1/_libros_list.html', {
+            'libros': libros_paginados,
+            'buscar': buscar  # Pasar el término de búsqueda al template
+        })
         return JsonResponse({'html': html})
     
     # Si no es AJAX, renderiza la página completa
