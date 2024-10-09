@@ -1,24 +1,24 @@
 {% load static %}
 
 
-    {% for libro in libros %}
-    <div class="libro">
-        <div class="portada-titulo">
-            {% if libro.portada %}
-            <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
-            {% else %}
-            <img src="{% static 'default_cover.jpg' %}" alt="Portada predeterminada">
-            {% endif %}
-            <div class="titulo-id">
-                <p><strong># </strong>{{ libro.id }}</p>
-                <h4>{{ libro.titulo }}</h4>
-            </div>
+{% for libro in libros %}
+<div class="libro" data-id="{{ libro.id }}">
+    <div class="portada-titulo">
+        {% if libro.portada %}
+        <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
+        {% else %}
+        <img src="{% static 'default_cover.jpg' %}" alt="Portada predeterminada">
+        {% endif %}
+        <div class="titulo-id">
+            <p><strong># </strong>{{ libro.id }}</p>
+            <h4>{{ libro.titulo }}</h4>
         </div>
-        <p><strong>ISBN: </strong>{{ libro.isbn }}</p>
-        <p><strong>Autor: </strong>{{ libro.autor }}</p>
-        <p><strong>Descripción: </strong>{{ libro.descripcion }}</p>
     </div>
-    {% endfor %}
+    <p><strong>ISBN: </strong>{{ libro.isbn }}</p>
+    <p><strong>Autor: </strong>{{ libro.autor }}</p>
+    <p><strong>Descripción: </strong>{{ libro.descripcion }}</p>
+</div>
+{% endfor %}
 
 
 <div class="opcionesfinales">

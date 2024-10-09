@@ -155,6 +155,18 @@ function cerrarModal() {
 }
 
 
+// seleccionar libro
+
+function seleccionarLibro(libroId, titulo, autor) {
+    document.getElementById('libro_id').value = libroId;
+    document.getElementById('libro-seleccionado').innerHTML = `
+        <p><strong>Libro seleccionado:</strong> ${titulo} por ${autor}</p>
+    `;
+    cerrarModal();
+}
+
+
+
 
 // prevenir la recarga de la pagina para buscar el libro en el modal
 
@@ -175,9 +187,27 @@ function cargarLibros(url = '/App1/prestamos/') {
     .then(data => {
         document.querySelector('.libros').innerHTML = data.html;
         setupPaginationLinks();
+        setupLibroSeleccion();
     })
     .catch(error => console.error('Error al cargar libros:', error));
 }
+
+
+
+function setupLibroSeleccion() {
+    const libros = document.querySelectorAll('.libro');
+    libros.forEach(libro => {
+        libro.addEventListener('click', function() {
+            const libroId = this.getAttribute('data-id');
+            const titulo = this.querySelector('h4').textContent;
+            const autor = this.querySelector('p:nth-child(3)').textContent.replace('Autor: ', '');
+            seleccionarLibro(libroId, titulo, autor);
+        });
+    });
+}
+
+
+
 
 function setupPaginationLinks() {
     const paginationLinks = document.querySelectorAll('.pagination-link');

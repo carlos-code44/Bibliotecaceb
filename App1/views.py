@@ -197,6 +197,34 @@ def normas(request):
 def mas_info(request):
     return render(request, 'App1/mas_info.html',)
 
+# ----------------------------------vista encargada del formulario de prestamos--------------------------
+
+
+
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
+from .models import Libro, Prestamo
+from django.contrib import messages
+
+@require_POST
+def realizar_prestamo(request):
+    libro_id = request.POST.get('libro_id')
+    libro = Libro.objects.get(id=libro_id)
+    
+    prestamo = Prestamo(
+        libro=libro,
+        estudiante_nombre=request.POST.get('student_name'),
+        curso=request.POST.get('grade'),
+        telefono=request.POST.get('contact_phone'),
+        email=request.POST.get('contact_email'),
+        fecha_prestamo=request.POST.get('loan_date'),
+        fecha_devolucion=request.POST.get('return_date'),
+        comentarios=request.POST.get('comments')
+    )
+    prestamo.save()
+    
+    messages.success(request, 'Préstamo realizado con éxito.')
+    return redirect('App1:prestamos')
 
 
 # ------------------------------------paginas de administrador-------------------------------------------
@@ -227,10 +255,9 @@ def prestamos(request):
 
     # Verifica si la solicitud es AJAX mediante el encabezado
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        # Renderiza el template parcial y lo devuelve como JSON
         html = render_to_string('App1/_libros_list.html', {
             'libros': libros_paginados,
-            'buscar': buscar  # Pasar el término de búsqueda al template
+            'buscar': buscar
         })
         return JsonResponse({'html': html})
     

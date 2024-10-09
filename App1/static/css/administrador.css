@@ -1099,6 +1099,48 @@ input[type="file"] {
 }
 
 
+.messages {
+    background-color: var(--modal-background);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.alert {
+    background-color: var(--color-body);
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-inicio);
+    font-size: 20px;
+    padding: 20px;
+}
+
+.alert-success {
+    background-color: var(--color-body);
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-inicio);
+    font-size: 20px;
+    padding: 20px;
+}
+
+
+
 
 
 /* -----------------------------------------Lista-Prestamos-------------------------------------------------- */
