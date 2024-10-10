@@ -25,6 +25,7 @@ urlpatterns = [
     path('cambiar_correo/', views.cambiar_correo, name='cambiar_correo'),
     path('cambiar_contrasena/', views.cambiar_contrasena, name='cambiar_contrasena'),
     path('realizar-prestamo/', views.realizar_prestamo, name='realizar_prestamo'),
+    path('marcar-devuelto/<int:prestamo_id>/', views.marcar_devuelto, name='marcar_devuelto'),
 ]
 
 if settings.DEBUG:

@@ -216,7 +216,7 @@
 {% comment %} <!-- ------------------------ contenedor principal-------------------------------------> {% endcomment %}
 
     <div class="contenedorprincipal" id="contenedor-lista-prestamos">
-        <h1>Historial de prestamos</h1>
+        <h1>Historial de préstamos</h1>
         <table>
             <thead>
                 <tr class="nombre-columna">
@@ -228,30 +228,27 @@
                     <th>Fecha de Préstamo</th>
                     <th>Fecha de Devolución</th>
                     <th>Comentarios Adicionales</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Juan Pérez</td>
-                    <td>Grado 11</td>
-                    <td>123-456-7890</td>
-                    <td>juan.perez@example.com</td>
-                    <td>El Quijote</td>
-                    <td>2024-09-01</td>
-                    <td>2024-09-15</td>
-                    <td>Entregar antes del 20</td>
+                {% for prestamo in prestamos %}
+                <tr data-prestamo-id="{{ prestamo.id }}">
+                    <td>{{ prestamo.estudiante_nombre }}</td>
+                    <td>{{ prestamo.curso }}</td>
+                    <td>{{ prestamo.telefono }}</td>
+                    <td>{{ prestamo.email }}</td>
+                    <td>{{ prestamo.libro.titulo }}</td>
+                    <td>{{ prestamo.fecha_prestamo|date:"Y-m-d" }}</td>
+                    <td>{{ prestamo.fecha_devolucion|date:"Y-m-d" }}</td>
+                    <td>{{ prestamo.comentarios }}</td>
+                    <td>
+                        <button class="devolver-btn" data-prestamo-id="{{ prestamo.id }}">
+                            <ion-icon name="checkmark-circle-outline"></ion-icon>
+                        </button>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Maria López</td>
-                    <td>Grado 10</td>
-                    <td>098-765-4321</td>
-                    <td>maria.lopez@example.com</td>
-                    <td>Cien años de soledad</td>
-                    <td>2024-09-05</td>
-                    <td>2024-09-20</td>
-                    <td>Ninguno</td>
-                </tr>
-                <!-- Puedes agregar más filas aquí -->
+                {% endfor %}
             </tbody>
         </table>
     </div>

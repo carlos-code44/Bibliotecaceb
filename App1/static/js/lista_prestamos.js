@@ -133,3 +133,60 @@ const openEditImagenPerfilModal = (event) => {
 const closeEditImagenPerfilModal = () => {
     modalEditImagenPerfil.style.display = 'none';
 }
+
+
+
+// ------------------------------------funciones de historial de prestamos--------------------------------------
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const devolverBtns = document.querySelectorAll('.devolver-btn');
+
+    devolverBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const prestamoId = this.getAttribute('data-prestamo-id');
+            marcarComoDevuelto(prestamoId);
+        });
+    });
+
+    function marcarComoDevuelto(prestamoId) {
+        fetch(`/App1/marcar-devuelto/${prestamoId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Remove the row from the table
+                const row = document.querySelector(`tr[data-prestamo-id="${prestamoId}"]`);
+                row.remove();
+                alert(data.message);
+            } else {
+                alert('Error al marcar como devuelto: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al marcar como devuelto');
+        });
+    }
+
+    // Function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});

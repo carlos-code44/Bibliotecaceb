@@ -1201,6 +1201,14 @@ input[type="file"] {
     }
 }
 
+.devolver-btn {
+    border: none;
+    background-color: transparent;
+}
+
+.devolver-btn:hover {
+    color: #000000;
+}
 
 
 

@@ -197,9 +197,9 @@ def normas(request):
 def mas_info(request):
     return render(request, 'App1/mas_info.html',)
 
-# ----------------------------------vista encargada del formulario de prestamos--------------------------
 
 
+# ----------------------------------vistas encargadas del formulario de prestamos--------------------------
 
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
@@ -207,33 +207,42 @@ from .models import Libro, Prestamo
 from django.contrib import messages
 
 
+from django.shortcuts import redirect
+from django.contrib import messages
+
 @require_POST
 def realizar_prestamo(request):
     libro_id = request.POST.get('libro_id')
-    libro = Libro.objects.get(id=libro_id)
+    try:
+        libro = Libro.objects.get(id=libro_id)
+        
+        if not libro.disponible:
+            messages.error(request, 'Este libro ya no está disponible.')
+            return redirect('App1:prestamos')
+        
+        prestamo = Prestamo(
+            libro=libro,
+            estudiante_nombre=request.POST.get('student_name'),
+            curso=request.POST.get('grade'),
+            telefono=request.POST.get('contact_phone'),
+            email=request.POST.get('contact_email'),
+            fecha_prestamo=request.POST.get('loan_date'),
+            fecha_devolucion=request.POST.get('return_date'),
+            comentarios=request.POST.get('comments')
+        )
+        prestamo.save()
+        
+        libro.disponible = False
+        libro.save()
+        
+        messages.success(request, 'Préstamo realizado con éxito.')
+    except Libro.DoesNotExist:
+        messages.error(request, 'El libro seleccionado no existe.')
+    except Exception as e:
+        messages.error(request, f'Error al realizar el préstamo: {str(e)}')
     
-    if not libro.disponible:
-        return JsonResponse({'success': False, 'message': 'Este libro ya no está disponible.'})
-    
-    prestamo = Prestamo(
-        libro=libro,
-        estudiante_nombre=request.POST.get('student_name'),
-        curso=request.POST.get('grade'),
-        telefono=request.POST.get('contact_phone'),
-        email=request.POST.get('contact_email'),
-        fecha_prestamo=request.POST.get('loan_date'),
-        fecha_devolucion=request.POST.get('return_date'),
-        comentarios=request.POST.get('comments')
-    )
-    prestamo.save()
-    
-    libro.disponible = False
-    libro.save()
-    
-    return JsonResponse({'success': True, 'message': 'Préstamo realizado con éxito.'})
+    return redirect('App1:prestamos')
 
-
-# ------------------------------------paginas de administrador-------------------------------------------
 
 from django.http import JsonResponse
 from django.template.loader import render_to_string
@@ -241,6 +250,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Libro
 
+@login_required
 def prestamos(request):
     buscar = request.GET.get('txtbuscar2', '')
     
@@ -277,10 +287,33 @@ def prestamos(request):
     return render(request, 'App1/prestamos.html', context)
 
 
-    
-def lista_prestamos(request):
-    return render(request, 'App1/lista_prestamos.html',)
+#-------------------------------vistas de historial de prestamos---------------------------------------------
 
+    
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from .models import Prestamo, Libro
+
+@login_required
+def lista_prestamos(request):
+    prestamos = Prestamo.objects.all().order_by('-fecha_prestamo')
+    return render(request, 'App1/lista_prestamos.html', {'prestamos': prestamos})
+
+def marcar_devuelto(request, prestamo_id):
+    if request.method == 'POST':
+        prestamo = Prestamo.objects.get(id=prestamo_id)
+        libro = prestamo.libro
+        libro.disponible = True
+        libro.save()
+        prestamo.delete()
+        return JsonResponse({'success': True, 'message': 'Préstamo marcado como devuelto y eliminado.'})
+    return JsonResponse({'success': False, 'message': 'Método no permitido.'})
+
+
+
+#----------------------------------vistas de admisntradores--------------------------------------------------
+
+@login_required
 def administradores(request):
     return render(request, 'App1/administradores.html',)
 
