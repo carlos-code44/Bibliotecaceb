@@ -296,7 +296,7 @@
         <div class="modal-body">
                 <div class="libros">
                     {% for libro in libros %}
-                    <div class="libro">
+                    <div class="libro {% if libro.disponible == 'false' %}no-disponible{% endif %}" data-id="{{ libro.id }}" data-disponible="{{ libro.disponible }}">
                         <div class="portada-titulo">
                             {% if libro.portada %}
                             <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
@@ -311,8 +311,18 @@
                         <p><strong>ISBN: </strong>{{ libro.isbn }}</p>
                         <p><strong>Autor: </strong>{{ libro.autor }}</p>
                         <p><strong>Descripción: </strong>{{ libro.descripcion }}</p>
+                        <p><strong>Disponible: </strong>{% if libro.disponible == 'true' %}Sí{% else %}No{% endif %}</p>
                     </div>
                     {% endfor %}
+                    <div class="opcionesfinales">
+                        {% if libros.has_previous %}
+                        <a class="pagination-link" href="?pagina={{ libros.previous_page_number }}&txtbuscar={{ buscar }}">Anterior</a>
+                        {% endif %}
+                    
+                        {% if libros.has_next %}
+                        <a class="pagination-link" href="?pagina={{ libros.next_page_number }}&txtbuscar={{ buscar }}">Siguiente</a>
+                        {% endif %}
+                    </div>
                 </div>
                 
         </div>

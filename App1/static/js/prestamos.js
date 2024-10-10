@@ -173,11 +173,10 @@ function seleccionarLibro(libroId, titulo, autor) {
 let currentSearchTerm = '';
 
 function cargarLibros(url = '/App1/prestamos/') {
-    // Si la URL no incluye el término de búsqueda, añádelo
     if (!url.includes('txtbuscar2=') && currentSearchTerm) {
         url += (url.includes('?') ? '&' : '?') + 'txtbuscar2=' + encodeURIComponent(currentSearchTerm);
     }
-
+    
     fetch(url, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -186,10 +185,35 @@ function cargarLibros(url = '/App1/prestamos/') {
     .then(response => response.json())
     .then(data => {
         document.querySelector('.libros').innerHTML = data.html;
-        setupPaginationLinks();
+        updatePaginationLinks(data);
         setupLibroSeleccion();
     })
     .catch(error => console.error('Error al cargar libros:', error));
+}
+
+function updatePaginationLinks(data) {
+    const paginationContainer = document.querySelector('.opcionesfinales');
+    paginationContainer.innerHTML = '';
+
+    if (data.has_previous) {
+        const prevLink = createPaginationLink('Anterior', data.previous_page_number);
+        paginationContainer.appendChild(prevLink);
+    }
+
+    if (data.has_next) {
+        const nextLink = createPaginationLink('Siguiente', data.next_page_number);
+        paginationContainer.appendChild(nextLink);
+    }
+
+    setupPaginationLinks();
+}
+
+function createPaginationLink(text, pageNumber) {
+    const link = document.createElement('a');
+    link.href = `?pagina=${pageNumber}`;
+    link.className = 'pagination-link';
+    link.textContent = text;
+    return link;
 }
 
 
@@ -198,6 +222,11 @@ function setupLibroSeleccion() {
     const libros = document.querySelectorAll('.libro');
     libros.forEach(libro => {
         libro.addEventListener('click', function() {
+            const disponible = this.getAttribute('data-disponible') === 'true';
+            if (!disponible) {
+                alert('Este libro no está disponible para préstamo.');
+                return;
+            }
             const libroId = this.getAttribute('data-id');
             const titulo = this.querySelector('h4').textContent;
             const autor = this.querySelector('p:nth-child(3)').textContent.replace('Autor: ', '');
@@ -205,8 +234,6 @@ function setupLibroSeleccion() {
         });
     });
 }
-
-
 
 
 function setupPaginationLinks() {

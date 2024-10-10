@@ -2,7 +2,7 @@
 
 
 {% for libro in libros %}
-<div class="libro" data-id="{{ libro.id }}">
+<div class="libro {% if not libro.disponible %}no-disponible{% endif %}" data-id="{{ libro.id }}" data-disponible="{{ libro.disponible|lower }}">
     <div class="portada-titulo">
         {% if libro.portada %}
         <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}">
@@ -17,6 +17,7 @@
     <p><strong>ISBN: </strong>{{ libro.isbn }}</p>
     <p><strong>Autor: </strong>{{ libro.autor }}</p>
     <p><strong>Descripción: </strong>{{ libro.descripcion }}</p>
+    <p><strong>Disponible: </strong>{% if libro.disponible %}Sí{% else %}No{% endif %}</p>
 </div>
 {% endfor %}
 

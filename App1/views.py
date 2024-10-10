@@ -206,10 +206,14 @@ from django.views.decorators.http import require_POST
 from .models import Libro, Prestamo
 from django.contrib import messages
 
+
 @require_POST
 def realizar_prestamo(request):
     libro_id = request.POST.get('libro_id')
     libro = Libro.objects.get(id=libro_id)
+    
+    if not libro.disponible:
+        return JsonResponse({'success': False, 'message': 'Este libro ya no está disponible.'})
     
     prestamo = Prestamo(
         libro=libro,
@@ -223,8 +227,10 @@ def realizar_prestamo(request):
     )
     prestamo.save()
     
-    messages.success(request, 'Préstamo realizado con éxito.')
-    return redirect('App1:prestamos')
+    libro.disponible = False
+    libro.save()
+    
+    return JsonResponse({'success': True, 'message': 'Préstamo realizado con éxito.'})
 
 
 # ------------------------------------paginas de administrador-------------------------------------------
@@ -249,20 +255,26 @@ def prestamos(request):
         libros = Libro.objects.all()
 
     # Paginación
-    paginator = Paginator(libros, 3)
+    paginator = Paginator(libros, 3)  # 3 libros por página
     pagina = request.GET.get('pagina', 1)
     libros_paginados = paginator.get_page(pagina)
 
-    # Verifica si la solicitud es AJAX mediante el encabezado
+    context = {
+        'libros': libros_paginados,
+        'buscar': buscar,
+    }
+
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        html = render_to_string('App1/_libros_list.html', {
-            'libros': libros_paginados,
-            'buscar': buscar
+        html = render_to_string('App1/_libros_list.html', context)
+        return JsonResponse({
+            'html': html,
+            'has_previous': libros_paginados.has_previous(),
+            'has_next': libros_paginados.has_next(),
+            'previous_page_number': libros_paginados.previous_page_number() if libros_paginados.has_previous() else None,
+            'next_page_number': libros_paginados.next_page_number() if libros_paginados.has_next() else None,
         })
-        return JsonResponse({'html': html})
     
-    # Si no es AJAX, renderiza la página completa
-    return render(request, 'App1/prestamos.html', {'libros': libros_paginados, 'buscar': buscar})
+    return render(request, 'App1/prestamos.html', context)
 
 
     

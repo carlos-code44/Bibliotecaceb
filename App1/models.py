@@ -16,6 +16,7 @@ class Libro(models.Model):
     numero_topografia = models.CharField(max_length=200)
     numero_ejemplar = models.CharField(max_length=200)
     descripcion = models.CharField(max_length=1000)
+    disponible = models.BooleanField(default=True)
 
     def __str__(self):
         return self.titulo
