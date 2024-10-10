@@ -31,6 +31,9 @@ def index(request):
     return render(request, 'App1/index.html',)
 
 
+
+# --------------------------------vistas de login-register-roles------------------------------------------------
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -69,6 +72,9 @@ def register_view(request):
     
     return render(request, 'App1/login.html')
 
+
+
+#---------------------------------vistas crud---------------------------------------------------------------------
 
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -387,3 +393,9 @@ def cambiar_contrasena(request):
             return redirect('App1:cambiar_contrasena')
 
     return redirect('App1:libros')
+
+
+#----------------------------------------vista para paginas de usuario------------------------------------------------
+
+def libros_usuarios(request):
+    return render(request, 'App1/libros_usuarios.html',)
