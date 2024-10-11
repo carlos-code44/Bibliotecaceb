@@ -7,8 +7,9 @@ from django.core.paginator import Paginator
 from .models import Libro
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from .decorators import admin_required
 
-@login_required
+@admin_required
 def lista_libros(request): 
     buscar = request.GET.get('txtbuscar', '')
     if buscar:
@@ -38,6 +39,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .models import UserProfile
 
 def login_view(request):
     if request.method == 'POST':
@@ -46,9 +48,12 @@ def login_view(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('App1:libros')  # Redirigir a la página de inicio o dashboard
-        else:
-            messages.error(request, 'Correo o contraseña incorrectos')
+            # Verifica si existe un perfil de usuario, si no, créalo
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
+            if user.userprofile.is_admin:
+                return redirect('App1:libros')
+            else:
+                return redirect('App1:libros_usuarios')
     return render(request, 'App1/login.html')
 
 def register_view(request):
@@ -71,6 +76,26 @@ def register_view(request):
         return redirect('App1:register')
     
     return render(request, 'App1/login.html')
+
+
+# asignar roles de administrador
+
+
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.models import User
+
+@user_passes_test(lambda u: u.userprofile.is_admin)
+def toggle_admin(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.userprofile.is_admin = not user.userprofile.is_admin
+    user.userprofile.save()
+    return redirect('App1:administradores')
+
+@admin_required
+def administradores(request):
+    users = User.objects.all()
+    return render(request, 'App1/administradores.html', {'users': users})
 
 
 
@@ -256,7 +281,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import Libro
 
-@login_required
+@admin_required
 def prestamos(request):
     buscar = request.GET.get('txtbuscar2', '')
     
@@ -300,7 +325,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Prestamo, Libro
 
-@login_required
+@admin_required
 def lista_prestamos(request):
     prestamos = Prestamo.objects.all().order_by('-fecha_prestamo')
     return render(request, 'App1/lista_prestamos.html', {'prestamos': prestamos})
@@ -319,9 +344,43 @@ def marcar_devuelto(request, prestamo_id):
 
 #----------------------------------vistas de admisntradores--------------------------------------------------
 
-@login_required
-def administradores(request):
-    return render(request, 'App1/administradores.html',)
+
+from django.contrib.auth.models import User
+from django.shortcuts import render
+
+@admin_required
+def administradores_view(request):
+    users = User.objects.all().select_related('userprofile')
+    print(f"Número de usuarios: {users.count()}")  # Agrega esta línea para depuración
+    return render(request, 'App1/administradores.html', {'users': users})
+
+
+
+
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.models import User
+from .models import UserProfile
+
+def make_admin(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile, created = UserProfile.objects.get_or_create(user=user)
+    profile.is_admin = True
+    profile.save()
+    return redirect('App1:administradores')
+
+def remove_admin(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    profile = UserProfile.objects.get(user=user)
+    profile.is_admin = False
+    profile.save()
+    return redirect('App1:administradores')
+
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    return redirect('App1:administradores')
+
+
 
 #------------------------------- vistas editar perfil-----------------------------------------------------
 
@@ -397,5 +456,21 @@ def cambiar_contrasena(request):
 
 #----------------------------------------vista para paginas de usuario------------------------------------------------
 
-def libros_usuarios(request):
-    return render(request, 'App1/libros_usuarios.html',)
+def libros_usuarios_view(request):
+
+    buscar = request.GET.get('txtbuscar', '')
+    if buscar:
+        libros = Libro.objects.filter(
+            Q(titulo__icontains=buscar) |
+            Q(autor__icontains=buscar) |
+            Q(isbn__icontains=buscar) |
+            Q(descripcion__icontains=buscar)
+        )
+    else:
+        libros = Libro.objects.all()
+
+    paginator = Paginator(libros, 6)
+    pagina = request.GET.get('pagina', 1)
+    libros_paginados = paginator.get_page(pagina)
+
+    return render(request, 'App1/libros_usuarios.html', {'libros': libros_paginados, 'buscar': buscar})

@@ -26,7 +26,11 @@ urlpatterns = [
     path('cambiar_contrasena/', views.cambiar_contrasena, name='cambiar_contrasena'),
     path('realizar-prestamo/', views.realizar_prestamo, name='realizar_prestamo'),
     path('marcar-devuelto/<int:prestamo_id>/', views.marcar_devuelto, name='marcar_devuelto'),
-    path('libros_usuarios/<int:prestamo_id>/', views.libros_usuarios, name='libros_usuarios'),
+    path('libros-usuarios/', views.libros_usuarios_view, name='libros_usuarios'),
+    path('toggle-admin/<int:user_id>/', views.toggle_admin, name='toggle_admin'),
+    path('make-admin/<int:user_id>/', views.make_admin, name='make_admin'),
+    path('remove-admin/<int:user_id>/', views.remove_admin, name='remove_admin'),
+    path('delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
 ]
 
 if settings.DEBUG:

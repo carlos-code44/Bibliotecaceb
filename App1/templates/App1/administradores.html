@@ -216,89 +216,44 @@
 {% comment %}------------------------ contenedor principal----------------------------------- {% endcomment %}
 
 <div class="contenedorprincipal" id="contenedor-lista-prestamos">
-    <h1>Administradores</h1>
+    <h1>Usuarios y Administradores</h1>
     <table>
         <thead>
             <tr class="nombre-columna">
                 <th>Id</th>
                 <th>Usuario</th>
-                <th>correo</th>
-                <th>Contraseña</th>
+                <th>Correo</th>
+                <th>Es Admin</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
+            {% for user in users %}
             <tr>
-                <td>1</td>
-                <td>Carlos</td>
-                <td>carrlos@gmail.com</td>
-                <td>123</td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{% if user.userprofile.is_admin %}Sí{% else %}No{% endif %}</td>
                 <td>
-                    <ion-icon name="caret-down-circle-outline"></ion-icon>
-                    <ion-icon name="close-circle-outline"></ion-icon>
+                    {% if user.userprofile.is_admin %}
+                        <a href="{% url 'App1:remove_admin' user.id %}" title="Quitar admin">
+                            <ion-icon name="caret-down-circle-outline"></ion-icon>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'App1:make_admin' user.id %}" title="Hacer admin">
+                            <ion-icon name="caret-up-circle-outline"></ion-icon>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'App1:delete_user' user.id %}" title="Eliminar usuario" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                        <ion-icon name="close-circle-outline"></ion-icon>
+                    </a>
                 </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Andres</td>
-                <td>andres@gmail.com</td>
-                <td>123</td>
-                <td>
-                    <ion-icon name="caret-down-circle-outline"></ion-icon>
-                    <ion-icon name="close-circle-outline"></ion-icon>
-                </td>
-            </tr>
-            <!-- Puedes agregar más filas aquí -->
-        </tbody>
-    </table>
-
-
-    <h1>Usuarios</h1>
-    <table>
-        <thead>
-            <tr class="nombre-columna">
-                <th>Id</th>
-                <th>Usuario</th>
-                <th>correo</th>
-                <th>Contraseña</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>3</td>
-                <td>Matias</td>
-                <td>matias@gmail.com</td>
-                <td>123</td>
-                <td>
-                    <ion-icon name="caret-up-circle-outline"></ion-icon>
-                    <ion-icon name="close-circle-outline"></ion-icon>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Breiner</td>
-                <td>breiner@gmail.com</td>
-                <td>123</td>
-                <td>
-                    <ion-icon name="caret-up-circle-outline"></ion-icon>
-                    <ion-icon name="close-circle-outline"></ion-icon>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Estefani</td>
-                <td>estefani@gmail.com</td>
-                <td>123</td>
-                <td>
-                    <ion-icon name="caret-up-circle-outline"></ion-icon>
-                    <ion-icon name="close-circle-outline"></ion-icon>
-                </td>
-            </tr>
-            <!-- Puedes agregar más filas aquí -->
+            {% endfor %}
         </tbody>
     </table>
 </div>
+
 
 
 
