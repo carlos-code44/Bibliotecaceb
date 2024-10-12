@@ -285,11 +285,20 @@
         </div>
 
         <form method="GET" id="form-busqueda">
+            <div class="contenedor-header">
             <div class="contenedor-caja-buscar">
                 <button class="buscar" type="submit" value="Buscar" name="btnbuscar">
                     <i class="bi bi-search"></i></button>
                 <input class="CajaTextoBuscar" type="text" name="txtbuscar2"
                     placeholder="Ingresar Titulo, Autor, ISBN" autocomplete="off">
+            </div>
+
+            <button id="scan-button"><ion-icon name="scan-outline"></ion-icon></button>
+                <div id="scanner-container" style="display: none;">
+                    <div id="interactive" class="viewport">
+                        <a href="{% url 'App1:prestamos' %}">Volver</a>
+                    </div>
+                </div>
             </div>
         </form>
 
@@ -346,6 +355,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
     <script src="{% static 'js/prestamos.js' %}"></script>
 </body>
 </html>

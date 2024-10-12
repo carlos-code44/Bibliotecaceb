@@ -208,12 +208,25 @@
         <form method="GET">
             <div class="ContBuscar">
                 <div>
+
+                    <div class="contenedor-header">
                     <div class="contenedor-caja-buscar">
                         <button class="buscar" type="submit" value="Buscar" name="btnbuscar">
                             <i class="bi bi-search"></i></button>
                         <input class="CajaTextoBuscar" type="text" name="txtbuscar"
                             placeholder="Ingresar Titulo, Autor, ISBN" autocomplete="off">
                     </div>
+
+                        <button id="scan-button"><ion-icon name="scan-outline"></ion-icon></button>
+                            <div id="scanner-container" style="display: none;">
+                                <div id="interactive" class="viewport">
+                                    <a href="{% url 'App1:libros' %}">Volver</a>
+                                </div>
+                            </div>
+
+                    </div>
+
+
                     <div class="botones1">
                         <div class="inicio">
                             <a href="{% url 'App1:libros' %}"><i class="bi bi-arrow-left-short"></i>Inicio</a>

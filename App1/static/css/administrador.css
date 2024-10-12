@@ -314,7 +314,7 @@ main.min-main{
 }
 
 
-/*-------------->Lista de libros*/
+/*---------------------------------------->Lista de libros------------------------------------------------*/
 
 .contenedorprincipal {
     margin-left: 300px;
@@ -332,6 +332,83 @@ main.min-main{
     display: flex;
     flex-direction: column;
 }
+
+.contenedor-header {
+    display: flex;
+}
+
+#scan-button {
+    height: 35px;
+    width: 35px;
+    font-size: 35px;
+    border: none;
+    margin: 25px 10px;
+    background-color: transparent;
+    color: #2A63EC;
+    cursor: pointer;
+}
+
+#scan-button:hover {
+    color: #000000;
+}
+
+
+#scanner-container {
+    background-color: var(--modal-background);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#interactive.viewport {
+    width: 400px;
+    height: 400px;
+    background-color: var(--color-body);
+    padding: 10px;
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+#interactive.viewport > canvas, video {
+    max-width: 100%;
+    width: 100%;
+}
+
+canvas.drawing, canvas.drawingBuffer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#interactive.viewport a {
+    display: flex;
+    background-color: #3838E6;
+    padding: 5px 10px;
+    align-items: center;
+    border-radius: 5px;
+    transition: 0.25s;
+    color: #FFFFFF;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+#interactive.viewport a:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #000000;
+}
+
 
 .contenedor-caja-buscar {
     display: flex;
@@ -1305,7 +1382,7 @@ input[type="file"] {
     }
 
     .contenedor-caja-buscar {
-        width: 270px    ;
+        width: 270px;
     }
 
     .inicio {

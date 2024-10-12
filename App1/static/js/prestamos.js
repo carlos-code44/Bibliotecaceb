@@ -270,3 +270,85 @@ document.addEventListener('DOMContentLoaded', function() {
     setupPaginationLinks();
 });
 
+
+
+// ---------------------------------------escanear codigo de barras-----------------------------------------
+
+
+let scannerIsRunning = false;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const scanButton = document.getElementById('scan-button');
+    const scannerContainer = document.getElementById('scanner-container');
+
+    scanButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Previene el comportamiento por defecto
+        e.stopPropagation(); // Evita que el evento se propague al formulario
+        
+        if (scannerIsRunning) {
+            Quagga.stop();
+            scannerContainer.style.display = 'none';
+            scannerIsRunning = false;
+        } else {
+            scannerContainer.style.display = 'flex';
+            startScanner();
+        }
+    });
+});
+
+function startScanner() {
+    Quagga.init({
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.querySelector('#interactive'),
+            constraints: {
+                width: 480,
+                height: 320,
+                facingMode: "environment"
+            },
+        },
+        decoder: {
+            readers: [
+                "ean_reader",
+                "ean_8_reader",
+                "code_39_reader",
+                "code_128_reader",
+                "upc_reader",
+                "upc_e_reader"
+            ],
+            debug: {
+                showCanvas: true,
+                showPatches: true,
+                showFoundPatches: true,
+                showSkeleton: true,
+                showLabels: true,
+                showPatchLabels: true,
+                showRemainingPatchLabels: true,
+                boxFromPatches: {
+                    showTransformed: true,
+                    showTransformedBox: true,
+                    showBB: true
+                }
+            }
+        },
+    }, function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+        scannerIsRunning = true;
+    });
+
+    Quagga.onDetected(function(result) {
+        const code = result.codeResult.code;
+        document.querySelector('input[name="txtbuscar"]').value = code;
+        Quagga.stop();
+        document.getElementById('scanner-container').style.display = 'none';
+        scannerIsRunning = false;
+        // En lugar de enviar el formulario automáticamente, podemos activar el botón de búsqueda
+        document.querySelector('button[name="btnbuscar"]').click();
+    });
+}
