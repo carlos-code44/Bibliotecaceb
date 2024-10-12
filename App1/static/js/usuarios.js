@@ -133,3 +133,54 @@ const openEditImagenPerfilModal = (event) => {
 const closeEditImagenPerfilModal = () => {
     modalEditImagenPerfil.style.display = 'none';
 }
+
+
+// modal para ver libro
+
+function verLibro(libroId) {
+    // Mostrar el modal
+    document.getElementById('modalView').style.display = 'flex';
+    
+    // Realizar una solicitud AJAX para obtener los datos del libro
+    const url = `/App1/obtener_libro/${libroId}/`;
+    
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(libro => {
+            // Rellenar el modal con los datos del libro
+            const modalContent = document.querySelector('#modalView .modal-contenedor1');
+            modalContent.innerHTML = `
+                <div onclick="closeViewModal()" class="close-modal">X</div>
+                <div class="libro-ver">
+                    <div class="portada-titulo">
+                        <img src="${libro.portada || '/static/default_cover.jpg'}" alt="${libro.titulo}">
+                        <div class="titulo-id">
+                            <p><strong># </strong>${libro.id}</p>
+                            <h4>${libro.titulo}</h4>
+                        </div>
+                    </div>
+                    <p><strong>ISBN: </strong>${libro.isbn}</p>
+                    <p><strong>Autor: </strong>${libro.autor}</p>
+                    <p><strong>Editorial: </strong>${libro.editorial}</p>
+                    <p><strong>Fecha: </strong>${libro.fecha}</p>
+                    <p><strong>Numero de paginas: </strong>${libro.numero_pags}</p>
+                    <p><strong>Numero de topografia: </strong>${libro.numero_topografia}</p>
+                    <p><strong>Numero de ejemplar: </strong>${libro.numero_ejemplar}</p>
+                    <p><strong>Descripción: </strong>${libro.descripcion}</p>
+                </div>
+            `;
+        })
+        .catch(error => {
+            console.error('Error al obtener datos del libro:', error);
+            alert('Hubo un error al cargar los datos del libro. Por favor, intenta de nuevo.');
+        });
+}
+
+function closeViewModal() {
+    document.getElementById('modalView').style.display = 'none';
+}

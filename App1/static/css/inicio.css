@@ -434,7 +434,8 @@ body {
 
 .body-horarios {
   font-family: "Be Vietnam Pro", sans-serif;
-  background-color: #FAF5FF;
+  background-image: url(../imagenes/fondo-horarios.png);
+  background-size: cover;
   display: 	flex;
   flex-direction: column;
   justify-content: center;
@@ -461,6 +462,12 @@ body {
   width: 320px;
   height: 190px;
   padding: 40px;
+  transition: 0.5s;
+  border-radius: 5px;
+}
+
+.card:hover {
+  background-color: #01A7F4;
 }
 
 .card P {
