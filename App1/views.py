@@ -54,6 +54,8 @@ def login_view(request):
                 return redirect('App1:libros')
             else:
                 return redirect('App1:libros_usuarios')
+        else:
+            messages.error(request, 'Usuario o contraseña incorrectos')
     return render(request, 'App1/login.html')
 
 def register_view(request):
@@ -73,7 +75,7 @@ def register_view(request):
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
         messages.success(request, 'Registro exitoso. Ahora puedes iniciar sesión.')
-        return redirect('App1:register')
+        return redirect('App1:login')
     
     return render(request, 'App1/login.html')
 
@@ -105,31 +107,40 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import os
 
+from django.shortcuts import redirect, render
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.contrib import messages
+from .models import Libro
+
 def agregar_libro(request):
     if request.method == 'POST':
-        nuevo_libro = Libro(
-            titulo=request.POST['titulo'],
-            autor=request.POST['autor'],
-            editorial=request.POST['editorial'],
-            fecha=request.POST['fecha'],
-            isbn=request.POST['isbn'],
-            numero_pags=request.POST['numero_pags'],
-            numero_topografia=request.POST['numero_topografia'],
-            numero_ejemplar=request.POST['numero_ejemplar'],
-            descripcion=request.POST['descripcion'],
-        )
-        if 'portada' in request.FILES:
-            portada = request.FILES['portada']
-            # Genera un nombre de archivo único
-            filename = f"portada_{nuevo_libro.titulo}_{portada.name}"
-            # Guarda el archivo
-            path = default_storage.save(f'portadas/{filename}', ContentFile(portada.read()))
-            # Guarda la ruta relativa en el modelo
-            nuevo_libro.portada = path
+        try:
+            nuevo_libro = Libro(
+                titulo=request.POST['titulo'],
+                autor=request.POST['autor'],
+                editorial=request.POST['editorial'],
+                fecha=request.POST['fecha'],
+                isbn=request.POST['isbn'],
+                numero_pags=request.POST['numero_pags'],
+                numero_topografia=request.POST['numero_topografia'],
+                numero_ejemplar=request.POST['numero_ejemplar'],
+                descripcion=request.POST['descripcion'],
+            )
+            if 'portada' in request.FILES:
+                portada = request.FILES['portada']
+                filename = f"portada_{nuevo_libro.titulo}_{portada.name}"
+                path = default_storage.save(f'portadas/{filename}', ContentFile(portada.read()))
+                nuevo_libro.portada = path
+            
+            nuevo_libro.save()  # Save the new book to the database
+            messages.success(request, 'Libro agregado exitosamente.')
+        except Exception as e:
+            messages.error(request, f'Error al agregar el libro: {str(e)}')
         
         return redirect('App1:libros')
     
-    return render(request, 'App1:libros')
+    return render(request, 'App1/libros.html')
 
 
 from django.shortcuts import get_object_or_404, redirect

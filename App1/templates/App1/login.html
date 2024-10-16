@@ -1,6 +1,6 @@
 <!-- login.html -->
 
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -73,4 +73,109 @@
 </body>
     {% load static %}
     <script src="{% static 'js/login.js' %}"></script>
+</html> {% endcomment %}
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BibliotecaCEB</title>
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="shortcut icon" href="{% static 'imagenes/logo.png' %}" />
+</head>
+<body>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="container" id="container">
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="form-container register-container">
+      <form action="{% url 'App1:register' %}" method="post">
+        {% csrf_token %}
+        <h1>Regístrate aquí</h1>
+        <input type="text" name="usuario" placeholder="Usuario" required>
+        <input type="email" name="correo" placeholder="Correo" required>
+        <input type="password" name="contraseña" placeholder="Contraseña" required>
+        <button type="submit">Registrarse</button>
+        <span>o usa tu cuenta</span>
+        <div class="social-container">
+          <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+          <a href="#" class="social"><i class="lni lni-google"></i></a>
+          <a href="#" class="social"><i class="lni lni-linkedin-original"></i></a>
+        </div>
+      </form>
+    </div>
+
+    <div class="form-container login-container">
+      <form action="{% url 'App1:login' %}" method="post">
+        {% csrf_token %}
+        <h1>Inicia sesión aquí</h1>
+        <input type="text" name="correo" placeholder="Usuario" required>
+        <input type="password" name="contraseña" placeholder="Contraseña" required>
+        <div class="content">
+          <div class="checkbox">
+            <input type="checkbox" name="checkbox" id="checkbox">
+            <label>Recuérdame</label>
+          </div>
+          <div class="pass-link">
+            <a href="#">¿Olvidaste la contraseña?</a>
+          </div>
+        </div>
+        <button type="submit">Iniciar sesión</button>
+        <span>o usa tu cuenta</span>
+        <div class="social-container">
+          <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+          <a href="#" class="social"><i class="lni lni-google"></i></a>
+          <a href="#" class="social"><i class="lni lni-linkedin-original"></i></a>
+        </div>
+      </form>
+    </div>
+
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1 class="title">¡Hola!</h1>
+          <p>Si tienes una cuenta, inicia sesión aquí</p>
+          <button class="ghost" id="login">Iniciar
+            <i class="lni lni-arrow-left login"></i>
+          </button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1 class="title">¿No tienes <br> una cuenta?</h1>
+          <p>Si aún no tienes una cuenta, crea una aquí.</p>
+          <button class="ghost" id="register">Regístrate
+            <i class="lni lni-arrow-right register"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  {% load static %}
+  <script src="{% static 'js/login.js' %}"></script>
+
+  <script>
+    {% if messages %}
+      {% for message in messages %}
+        showToast("{{ message }}", "{{ message.tags }}");
+      {% endfor %}
+    {% endif %}
+  </script>
+</body>
 </html>
